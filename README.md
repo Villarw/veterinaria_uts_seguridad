@@ -37,8 +37,8 @@ que mejore la calidad del servicio y garantice la integridad de los datos.
 ## Instalacion y ejecucion rapida
 
 1. Clona el repositorio
-   git clone https://github.com/tuusuario/veterinaria_uts_seguridad.git
-
+[   git clone https://github.com/tuusuario/veterinaria_uts_seguridad.git
+](https://github.com/Villarw/veterinaria_uts_seguridad)
 2. Crea la base de datos
    Abre phpMyAdmin (http://localhost/phpmyadmin) y ejecuta el script SQL
    completo que se encuentra en la carpeta docs/script.sql o en la seccion
