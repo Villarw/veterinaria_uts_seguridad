@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <h2>Clientes</h2>
+    <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/clientes/nuevo}" class="btn btn-success mb-3">Nuevo cliente</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Email</th><th>Dirección</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="c : ${clientes}" th:class="${!c.activo ? 'table-secondary' : ''}">
+                <td th:text="${c.idCliente}"></td>
+                <td th:text="${c.nombre}"></td>
+                <td th:text="${c.telefono}"></td>
+                <td th:text="${c.email}"></td>
+                <td th:text="${c.direccion}"></td>
+                <td>
+                    <span th:if="${c.activo}" class="badge bg-success">Activo</span>
+                    <span th:unless="${c.activo}" class="badge bg-danger">Inactivo</span>
+                </td>
+                <td>
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/clientes/editar/{id}(id=${c.idCliente})}" class="btn btn-sm btn-warning">Editar</a>
+                    <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/clientes/toggle/{id}(id=${c.idCliente})}" 
+                       class="btn btn-sm" th:classappend="${c.activo ? 'btn-danger' : 'btn-success'}"
+                       th:text="${c.activo ? 'Desactivar' : 'Activar'}"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

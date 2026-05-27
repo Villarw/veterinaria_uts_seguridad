@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4" style="max-width: 600px;">
+    <h3>Nueva cita</h3>
+    <form th:action="@{/cliente/citas}" th:object="${cita}" method="post">
+        <div class="mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" th:field="*{fecha}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hora</label>
+            <input type="time" th:field="*{hora}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Motivo</label>
+            <input type="text" th:field="*{motivo}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mascota</label>
+            <select th:field="*{mascota.idMascota}" class="form-select" required>
+                <option value="">Seleccione mascota</option>
+                <option th:each="m : ${mascotas}" th:value="${m.idMascota}" th:text="${m.nombre}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Veterinario</label>
+            <select th:field="*{medico.idMedico}" class="form-select" required>
+                <option value="">Seleccione médico</option>
+                <option th:each="med : ${medicos}" th:value="${med.idMedico}" th:text="${med.nombre}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/cliente/citas}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

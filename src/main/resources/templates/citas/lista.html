@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <h2>Citas</h2>
+    <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/citas/nuevo}" class="btn btn-success mb-3">Nueva cita</a>
+    <a th:if="${#authorization.expression('hasRole(''ROLE_VET'')')}" th:href="@{/vet/citas/nueva}" class="btn btn-success mb-3">Nueva cita</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>ID</th><th>Fecha</th><th>Hora</th><th>Motivo</th><th>Mascota</th><th>Veterinario</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="c : ${citas}">
+                <td th:text="${c.idCita}"></td>
+                <td th:text="${c.fecha}"></td>
+                <td th:text="${c.hora}"></td>
+                <td th:text="${c.motivo}"></td>
+                <td th:text="${c.mascota.nombre}"></td>
+                <td th:text="${c.medico.nombre}"></td>
+                <td>
+                    <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                        <a th:href="@{/citas/editar/{id}(id=${c.idCita})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/citas/eliminar/{id}(id=${c.idCita})}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </span>
+                    <span th:if="${#authorization.expression('hasRole(''ROLE_VET'')')}">
+                        <a th:href="@{/vet/citas/editar/{id}(id=${c.idCita})}" class="btn btn-sm btn-warning">Editar</a>
+                        <a th:href="@{/vet/citas/eliminar/{id}(id=${c.idCita})}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

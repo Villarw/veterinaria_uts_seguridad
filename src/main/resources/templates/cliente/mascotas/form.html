@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4" style="max-width: 600px;">
+    <h3 th:text="${mascota.idMascota != null ? 'Editar' : 'Nueva'} + ' mascota'"></h3>
+    <form th:action="@{/cliente/mascotas}" th:object="${mascota}" method="post">
+        <input type="hidden" th:field="*{idMascota}" />
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" th:field="*{nombre}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Especie</label>
+            <input type="text" th:field="*{especie}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Raza</label>
+            <input type="text" th:field="*{raza}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Edad</label>
+            <input type="number" th:field="*{edad}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/cliente/mascotas}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

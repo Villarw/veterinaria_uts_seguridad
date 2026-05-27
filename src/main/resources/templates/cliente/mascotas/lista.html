@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <h2 class="mb-4">🐾 Mis Mascotas</h2>
+    <a th:href="@{/cliente/mascotas/nueva}" class="btn btn-success mb-4">➕ Agregar mascota</a>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4" th:each="m : ${mascotas}">
+            <div class="card card-dashboard" style="cursor: default;">
+                <img th:src="@{/images/IMG_2.jpg}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Mascota" />
+                <div class="card-body text-center">
+                    <h5 class="card-title" th:text="${m.nombre}"></h5>
+                    <p class="card-text">
+                        <strong>Especie:</strong> <span th:text="${m.especie}"></span><br>
+                        <strong>Raza:</strong> <span th:text="${m.raza}"></span>
+                    </p>
+                    <a th:href="@{/cliente/historial/{id}(id=${m.idMascota})}" class="btn btn-primary btn-sm">📋 Ver historial</a>
+                </div>
+            </div>
+        </div>
+        <div th:if="${mascotas.empty}" class="col-12">
+            <div class="alert alert-info">Aún no tienes mascotas registradas. ¡Agrega la primera!</div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

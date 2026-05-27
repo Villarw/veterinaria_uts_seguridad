@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4" style="max-width: 700px;">
+    <h3>Nuevo registro para <span th:text="${historial.mascota.nombre}"></span></h3>
+    <form th:action="@{/historial}" th:object="${historial}" method="post">
+        <input type="hidden" th:field="*{mascota.idMascota}" />
+        <div class="mb-3">
+            <label class="form-label">Diagnóstico</label>
+            <textarea th:field="*{diagnostico}" class="form-control" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Tratamiento</label>
+            <textarea th:field="*{tratamiento}" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/historial/mascota/{id}(id=${historial.mascota.idMascota})}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

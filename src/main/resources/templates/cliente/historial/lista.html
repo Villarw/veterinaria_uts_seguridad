@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <h2>Historial de <span th:text="${mascota.nombre}"></span></h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>Fecha</th><th>Diagnóstico</th><th>Tratamiento</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="h : ${historiales}">
+                <td th:text="${#temporals.format(h.fechaRegistro, 'dd/MM/yyyy HH:mm')}"></td>
+                <td th:text="${h.diagnostico}"></td>
+                <td th:text="${h.tratamiento}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/cliente/mascotas}" class="btn btn-secondary">Volver</a>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

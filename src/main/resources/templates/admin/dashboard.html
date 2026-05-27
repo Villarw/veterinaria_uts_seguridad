@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container mt-4">
+    <!-- Hero con IMG_1 -->
+    <div class="hero-banner" style="background-image: url('/images/IMG_1.jpg');">
+        <h1>Panel de Administración</h1>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/clientes}" class="card-dashboard">
+                <div class="card-body">
+                    <div class="icono">👥</div>
+                    <h5>Clientes</h5>
+                    <p>Gestionar propietarios</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/mascotas}" class="card-dashboard">
+                <div class="card-body">
+                    <div class="icono">🐶</div>
+                    <h5>Mascotas</h5>
+                    <p>Registrar pacientes</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/citas}" class="card-dashboard">
+                <div class="card-body">
+                    <div class="icono">📅</div>
+                    <h5>Citas</h5>
+                    <p>Agenda médica</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 mb-3">
+            <a th:href="@{/admin/medicos}" class="card-dashboard">
+                <div class="card-body">
+                    <div class="icono">🩺</div>
+                    <h5>Médicos</h5>
+                    <p>Directorio profesional</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

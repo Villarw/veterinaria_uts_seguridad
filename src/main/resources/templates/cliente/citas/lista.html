@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <h2>Mis Citas</h2>
+    <a th:href="@{/cliente/citas/nueva}" class="btn btn-success mb-3">Agendar cita</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>Fecha</th><th>Hora</th><th>Motivo</th><th>Mascota</th><th>Veterinario</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="c : ${citas}">
+                <td th:text="${c.fecha}"></td>
+                <td th:text="${c.hora}"></td>
+                <td th:text="${c.motivo}"></td>
+                <td th:text="${c.mascota.nombre}"></td>
+                <td th:text="${c.medico.nombre}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

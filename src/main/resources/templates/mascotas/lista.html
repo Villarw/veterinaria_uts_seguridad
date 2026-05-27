@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <h2>Mascotas</h2>
+    <a th:href="@{/mascotas/nuevo}" class="btn btn-success mb-3">Nueva mascota</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>ID</th><th>Nombre</th><th>Especie</th><th>Raza</th><th>Edad</th><th>Dueño</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="m : ${mascotas}">
+                <td th:text="${m.idMascota}"></td>
+                <td th:text="${m.nombre}"></td>
+                <td th:text="${m.especie}"></td>
+                <td th:text="${m.raza}"></td>
+                <td th:text="${m.edad}"></td>
+                <td th:text="${m.cliente.nombre}"></td>
+                <td>
+                    <a th:href="@{/mascotas/editar/{id}(id=${m.idMascota})}" class="btn btn-sm btn-warning">Editar</a>
+                    <a th:href="@{/mascotas/eliminar/{id}(id=${m.idMascota})}" class="btn btn-sm btn-danger">Eliminar</a>
+                    <a th:href="@{/historial/mascota/{id}(id=${m.idMascota})}" class="btn btn-sm btn-info">Historial</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

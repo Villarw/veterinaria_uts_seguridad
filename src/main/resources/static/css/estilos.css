@@ -1,0 +1,147 @@
+:root {
+    --color-primario: #A8DADC;
+    --color-secundario: #F4A261;
+    --color-fondo: #FFF3E0;
+    --color-texto: #457B9D;
+    --color-blanco: #FFFFFF;
+    --sombra-suave: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body {
+    background-color: var(--color-fondo);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+/* Navbar mejorado */
+.navbar {
+    background-color: var(--color-primario) !important;
+    box-shadow: var(--sombra-suave);
+}
+.navbar .navbar-brand, .navbar .nav-link, .navbar .navbar-text {
+    color: var(--color-texto) !important;
+    font-weight: 500;
+}
+.navbar .navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+/* Hero banner */
+.hero-banner {
+    background-size: cover;
+    background-position: center;
+    height: 250px;
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 30px;
+    box-shadow: var(--sombra-suave);
+    position: relative;
+    overflow: hidden;
+}
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+}
+.hero-banner h1 {
+    position: relative;
+    color: white;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    padding-bottom: 20px;
+}
+
+/* Tarjetas del dashboard */
+.card-dashboard {
+    background-color: var(--color-blanco);
+    border-radius: 20px;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: var(--color-texto);
+    display: block;
+}
+.card-dashboard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.card-dashboard .card-body {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+.card-dashboard .icono {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: var(--color-secundario);
+}
+.card-dashboard h5 {
+    font-weight: 600;
+    color: var(--color-texto);
+}
+
+/* Botones mejorados */
+.btn-primary {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+    color: #2c3e50;
+    font-weight: 500;
+}
+.btn-primary:hover {
+    background-color: #7fb5b9;
+    border-color: #7fb5b9;
+    color: #1a252f;
+}
+.btn-success {
+    background-color: #B5EAD7;
+    border-color: #B5EAD7;
+    color: #2c3e50;
+    font-weight: 500;
+}
+.btn-warning {
+    background-color: #FFDAC1;
+    border-color: #FFDAC1;
+    color: #2c3e50;
+    font-weight: 500;
+}
+.btn-danger {
+    background-color: #FFB7B2;
+    border-color: #FFB7B2;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* Tablas */
+.table {
+    background-color: var(--color-blanco);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+}
+.table thead {
+    background-color: var(--color-primario);
+    color: var(--color-texto);
+}
+
+/* Imagen redonda para mascotas */
+.imagen-mascota {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--color-primario);
+    margin: 0 auto 10px auto;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--color-primario);
+    color: var(--color-texto);
+    padding: 15px 0;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: 500;
+}

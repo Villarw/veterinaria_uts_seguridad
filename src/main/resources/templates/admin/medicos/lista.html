@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: head}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-4">
+    <h2>Directorio Médico</h2>
+    <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <a th:href="@{/admin/medicos/nuevo}" class="btn btn-success mb-3">Nuevo médico</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr><th>ID</th><th>Nombre</th><th>Especialidad</th><th>Tarjeta Prof.</th><th>Usuario</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="med : ${medicos}">
+                <td th:text="${med.idMedico}"></td>
+                <td th:text="${med.nombre}"></td>
+                <td th:text="${med.especialidad}"></td>
+                <td th:text="${med.tarjetaProfesional}"></td>
+                <td th:text="${med.usuario.username}"></td>
+                <td>
+                    <a th:href="@{/admin/medicos/editar/{id}(id=${med.idMedico})}" class="btn btn-sm btn-warning">Editar</a>
+                    <a th:href="@{/admin/medicos/eliminar/{id}(id=${med.idMedico})}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
