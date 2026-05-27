@@ -1,0 +1,253 @@
+# 📄 Documento de Proyecto – Veterinaria UTS
+
+## Integrantes del grupo
+- Maria Fernanda Gallo Serrano
+- Gabriel Fernando Villar Suarez
+
+## Repositorio del proyecto
+https://github.com/Villarw/veterinaria_uts_seguridad
+
+# Objetivo General
+Desarrollar un sistema de información web integral para la gestión administrativa y clínica de una veterinaria, que centralice la información de pacientes, propietarios y procedimientos médicos mediante el uso de tecnologías Java y bases de datos relacionales, optimizando la calidad de la atención y la seguridad de los datos.
+
+# Objetivos específicos
+- Implementar un módulo de gestión de usuarios que permita diferenciar las funciones de administradores, personal médico y clientes.
+- Desarrollar un sistema de historias clínicas digital que permita el seguimiento cronológico y detallado de los diagnósticos y tratamientos de cada mascota.
+- Optimizar la agenda de servicios mediante un control automatizado de citas que evite la duplicidad de horarios y mejore la logística del centro.
+- Garantizar la integridad de la información mediante el uso de llaves foráneas y reglas de negocio a nivel de base de datos para evitar la pérdida de registros vinculados.
+- Proveer una interfaz de usuario intuitiva, adaptable a diferentes dispositivos y con diseño profesional basado en colores pastel e imágenes alusivas a la veterinaria.
+
+# 2. Justificación
+
+En el sector de la salud veterinaria actual, la eficiencia en el manejo de la información es un factor crítico. Muchas clínicas pequeñas y medianas operan bajo modelos tradicionales de registro manual o herramientas de oficina no especializadas, lo que deriva en fragmentación de la información, lentitud en la atención y, en casos críticos, la pérdida del historial médico del paciente.
+
+Este proyecto se justifica en la necesidad de modernizar estos procesos a través de la digitalización. Al implementar este sistema, no solo se logra un ahorro significativo en tiempos de búsqueda y archivo, sino que se eleva la calidad del servicio al permitir un diagnóstico más preciso y basado en antecedentes clínicos completos y accesibles. Además, el uso de arquitectura Spring Boot asegura que la aplicación sea escalable y fácil de mantener, preparando al establecimiento para un crecimiento futuro bajo estándares tecnológicos de nivel profesional.
+
+# 3. Entorno de trabajo
+
+- **Lenguaje:** Java 17+
+- **Framework Backend:** Spring Boot (Spring Data JPA, Spring Web, Spring Security, Thymeleaf)
+- **Motor de base de datos:** MySQL (gestionado a través de XAMPP con phpMyAdmin)
+- **Front-end:** Thymeleaf, HTML5, CSS3 y Bootstrap 5
+- **IDE de desarrollo:** Spring Tool Suite (STS)
+- **Control de versiones:** Git y repositorio en GitHub
+- **Seguridad:** Spring Security con autenticación basada en roles y contraseñas cifradas con BCrypt
+
+# 4. Requerimientos funcionales
+
+| Código | Descripción |
+|--------|-------------|
+| RF01 | Gestión de propietarios (clientes): Crear, Leer, Actualizar y Activar/Desactivar clientes (no eliminación física). |
+| RF02 | Registro de pacientes (mascotas): Ficha técnica vinculada relacionalmente a un propietario. |
+| RF03 | Control de citas: Módulo de asignación de turnos médicos con validación de fecha, hora y personal disponible, evitando duplicidad. |
+| RF04 | Historia clínica digital: Registro persistente de diagnósticos y tratamientos con fecha de creación automática. |
+| RF05 | Gestión de talento humano (directorio médico): Administración del personal veterinario según especialidades y usuarios de sistema. |
+| RF06 | Seguridad de acceso: Sistema de autenticación y autorización por roles (Admin, Veterinario, Cliente). |
+| RF07 | Panel de cliente: Acceso de dueños de mascotas para ver sus mascotas, agendar citas y consultar historial. |
+| RF08 | Filtro de datos por veterinario: Cada médico solo visualiza los clientes, mascotas y citas que le corresponden. |
+| RF09 | Activación/desactivación de clientes: Administrador puede desactivar clientes sin perder datos históricos. |
+
+# 5. Requerimientos no funcionales
+
+| Código | Descripción |
+|--------|-------------|
+| RNF01 | **Usabilidad:** Diseño de interfaz basado en experiencia de usuario (UX) con paleta de colores pastel y navegación intuitiva. |
+| RNF02 | **Rendimiento:** Latencia mínima en la recuperación de registros históricos mediante índices en la base de datos. |
+| RNF03 | **Robustez:** Capacidad del sistema para manejar errores de entrada sin interrumpir el servicio. |
+| RNF04 | **Persistencia:** Almacenamiento seguro con integridad referencial (cascada de borrado en mascotas e historial). |
+| RNF05 | **Seguridad:** Contraseñas cifradas con BCrypt, protección CSRF y control de acceso por roles. |
+| RNF06 | **Escalabilidad:** Arquitectura modular que permite agregar nuevos módulos sin reestructurar el núcleo. |
+
+# 6. Diagrama de Casos de Uso (texto)
+
+# Actores
+- **Administrador (admin_uts):** Gestiona usuarios, médicos, clientes, mascotas, citas e historial.
+- **Veterinario (pablo_vet, robert_vet):** Atiende clientes/mascotas asignados, crea citas y registra diagnósticos.
+- **Cliente (cliente1):** Consulta sus mascotas, agenda citas y revisa el historial médico de cada una.
+
+# Casos de Uso principales
+- **Administrador:**
+  - Iniciar sesión
+  - CRUD de médicos (crear, editar, listar)
+  - CRUD de clientes (crear, editar, activar/desactivar)
+  - Ver todas las mascotas, citas e historial
+- **Veterinario:**
+  - Iniciar sesión
+  - Ver sus clientes, mascotas y citas
+  - Crear, editar y eliminar citas propias
+  - Registrar diagnósticos en historial
+- **Cliente:**
+  - Iniciar sesión
+  - Ver sus mascotas
+  - Agregar nueva mascota
+  - Agendar cita con cualquier veterinario disponible
+  - Ver historial de cada mascota
+
+---
+
+# 7. Diagrama de Clases (simplificado)
+
+- **Usuario:** idUsuario, username, password, rol (relación ManyToOne con Rol)
+- **Rol:** idRol, nombreRol
+- **Cliente:** idCliente, nombre, telefono, email, direccion, activo, usuario (ManyToOne), mascotas (OneToMany)
+- **Mascota:** idMascota, nombre, especie, raza, edad, cliente (ManyToOne), citas (OneToMany), historiales (OneToMany)
+- **DirectorioMedico:** idMedico, nombre, especialidad, tarjetaProfesional, usuario (ManyToOne)
+- **Cita:** idCita, fecha, hora, motivo, mascota (ManyToOne), medico (ManyToOne)
+- **HistorialMedico:** idHistorial, fechaRegistro, diagnostico, tratamiento, mascota (ManyToOne)
+
+---
+
+# 8. Script SQL de la Base de Datos 
+
+```sql
+CREATE DATABASE IF NOT EXISTS veterinaria_uts;
+USE veterinaria_uts;
+
+CREATE TABLE roles (
+  id_rol INT PRIMARY KEY AUTO_INCREMENT,
+  nombre_rol VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE usuarios (
+  id_usuario INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  id_rol INT,
+  FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
+);
+
+CREATE TABLE clientes (
+  id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(100) NOT NULL,
+  telefono VARCHAR(20),
+  email VARCHAR(100),
+  direccion VARCHAR(150),
+  id_usuario INT NULL,
+  activo TINYINT(1) NOT NULL DEFAULT 1,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+);
+
+CREATE TABLE mascotas (
+  id_mascota INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(100) NOT NULL,
+  especie VARCHAR(50) NOT NULL,
+  raza VARCHAR(50),
+  edad INT,
+  id_cliente INT,
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE
+);
+
+CREATE TABLE directorio_medico (
+  id_medico INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(100) NOT NULL,
+  especialidad VARCHAR(100),
+  tarjeta_profesional VARCHAR(50),
+  id_usuario INT,
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+);
+
+CREATE TABLE citas (
+  id_cita INT PRIMARY KEY AUTO_INCREMENT,
+  fecha DATE NOT NULL,
+  hora TIME NOT NULL,
+  motivo VARCHAR(200),
+  id_mascota INT,
+  id_medico INT,
+  FOREIGN KEY (id_mascota) REFERENCES mascotas(id_mascota) ON DELETE CASCADE,
+  FOREIGN KEY (id_medico) REFERENCES directorio_medico(id_medico)
+);
+
+CREATE TABLE historial_medico (
+  id_historial INT PRIMARY KEY AUTO_INCREMENT,
+  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  diagnostico TEXT NOT NULL,
+  tratamiento TEXT,
+  id_mascota INT,
+  FOREIGN KEY (id_mascota) REFERENCES mascotas(id_mascota) ON DELETE CASCADE
+);
+
+-- Inserción de roles
+INSERT INTO roles (nombre_rol) VALUES ('ROLE_ADMIN');
+INSERT INTO roles (nombre_rol) VALUES ('ROLE_VET');
+INSERT INTO roles (nombre_rol) VALUES ('ROLE_CLIENTE');
+
+-- Usuarios iniciales
+INSERT INTO usuarios (username, password, id_rol) VALUES
+('admin_uts', '$2a$10$5EKe3134okgI0aj6rWuuJeVUuNLO09H1i0XTDRwSGOTo1iq7JIVDi', 1),
+('pablo_vet', '$2a$10$1N05gkndUUNScVwYg9o7..98galNm2JtzTSRQM6.IfQLs18.f0InC', 2),
+('cliente1', '$2a$10$qHWM6hC70ervD5oik4IBsuV3bQ3XSlDONMveFXBgy.Cxu9rk3OgRy', 3);
+
+-- Cliente de prueba
+INSERT INTO clientes (nombre, telefono, email, direccion, id_usuario, activo) VALUES
+('Carlos Pérez', '3001234567', 'carlos@mail.com', 'Calle 10 #20-30', 3, 1);
+
+-- Mascota de prueba
+INSERT INTO mascotas (nombre, especie, raza, edad, id_cliente) VALUES
+('Max', 'Perro', 'Labrador', 5, 1);
+
+-- Directorio médico
+INSERT INTO directorio_medico (nombre, especialidad, tarjeta_profesional, id_usuario) VALUES
+('Andrés López', 'Cirugía', 'TP-98765-VET', 2);
+
+-- Cita de prueba
+INSERT INTO citas (fecha, hora, motivo, id_mascota, id_medico) VALUES
+('2026-05-15', '10:30:00', 'Control post-operatorio', 1, 1);
+
+# 9. Diagrama Entidad Relación (DER) texto
+
+╔══════════════╗       ╔══════════════╗
+║    roles     ║       ║  usuarios    ║
+╠══════════════╣       ╠══════════════╣
+║ id_rol (PK)  ║───┐   ║ id_usuario(PK)
+║ nombre_rol   ║   └──>║ username     ║
+╚══════════════╝       ║ password     ║
+                       ║ id_rol (FK)  ║
+                       ╚══════════════╝
+                            │
+          ┌─────────────────┼──────────────────┐
+          │                 │                  │
+╔══════════╗        ╔══════════════╗   ╔═══════════════╗
+║ clientes ║        ║dir_medico    ║   ║   cliente1    ║
+╠══════════╣        ╠══════════════╣   ╠═══════════════╣
+║id_cliente(PK)    ║id_medico(PK)  ║   ║ usuario(FK)   ║
+║nombre    ║        ║nombre        ║   ╚═══════════════╝
+║telefono  ║        ║especialidad  ║
+║email     ║        ║tarjeta_prof  ║
+║direccion ║        ║id_usuario(FK)║
+║activo    ║        ╚══════════════╝
+║id_usuario(FK)           │
+╚══════════╗               │
+           │               │
+           │  ╔══════════════════╗
+           └─>║    mascotas      ║
+              ╠══════════════════╣
+              ║ id_mascota (PK)  ║
+              ║ nombre           ║
+              ║ especie          ║
+              ║ raza             ║
+              ║ edad             ║
+              ║ id_cliente (FK)  ║───┐
+              ╚══════════════════╝   │
+                                     │
+                         ┌───────────┘
+                         │
+           ╔══════════════════╗
+           ║     citas         ║
+           ╠══════════════════╣
+           ║ id_cita (PK)      ║
+           ║ fecha             ║
+           ║ hora              ║
+           ║ motivo            ║
+           ║ id_mascota (FK)   ║
+           ║ id_medico (FK)    ║───> dir_medico
+           ╚══════════════════╝
+                         │
+           ╔══════════════════╗
+           ║ historial_medico ║
+           ╠══════════════════╣
+           ║ id_historial(PK)  ║
+           ║ fecha_registro    ║
+           ║ diagnostico       ║
+           ║ tratamiento       ║
+           ║ id_mascota (FK)   ║
+           ╚══════════════════╝
